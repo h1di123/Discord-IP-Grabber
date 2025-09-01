@@ -5,96 +5,193 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fishing Lure Shop</title>
   <style>
+    :root {
+      --main-color: #f97316; /* orange */
+      --hover-color: #ea580c;
+      --bg-color: #ffffff;
+      --text-color: #333333;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
-      background: #f0f9ff;
-      color: #333;
+      background: var(--bg-color);
+      color: var(--text-color);
     }
+
     header {
-      background: #0369a1;
-      padding: 1rem;
-      text-align: center;
+      background: var(--main-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    h1 {
+
+    header h1 {
       margin: 0;
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #fff7ed;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
     .shop {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
     }
+
     .card {
       background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
     }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
     .card img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
-      border-radius: 8px;
     }
+
+    .card-content {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card-content h3 {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      font-weight: bold;
+      color: var(--main-color);
+      margin: 0.5rem 0;
+    }
+
     .btn {
       display: inline-block;
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
-      background: #22c55e;
+      background: var(--main-color);
       color: white;
-      border-radius: 8px;
-      text-decoration: none;
+      border-radius: 6px;
       font-weight: bold;
+      text-decoration: none;
       transition: background 0.2s;
       cursor: pointer;
     }
+
     .btn:hover {
-      background: #16a34a;
+      background: var(--hover-color);
     }
+
     #cart {
-      background: #fef08a;
-      padding: 1rem;
-      border-top: 2px solid #eab308;
+      background: #fff7ed;
+      padding: 2rem;
+      border-top: 2px solid var(--main-color);
+      max-width: 800px;
+      margin: auto;
+    }
+
+    #cart h2 {
+      margin-top: 0;
+    }
+
+    #cart-items {
+      list-style: none;
+      padding: 0;
+    }
+
+    #cart-items li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>🎣 Fisherman's Lure Shop</h1>
-    <p>Premium fishing lures for every angler</p>
+    <h1>🎣 Fisherman’s Lure Shop</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
   </header>
+
+  <section class="hero">
+    <h2>Premium Fishing Lures</h2>
+    <p>Catch more with our high-quality lures – trusted by anglers worldwide.</p>
+  </section>
 
   <section class="shop">
     <div class="card">
       <img src="https://m.media-amazon.com/images/I/81Y-s9qCOaL._AC_SL1500_.jpg" alt="Crankbait">
-      <h2>Crankbait Lure</h2>
-      <p>$9.99</p>
-      <button class="btn" onclick="addToCart('Crankbait Lure', 9.99)">Add to Cart</button>
+      <div class="card-content">
+        <h3>Crankbait Lure</h3>
+        <p class="price">$9.99</p>
+        <button class="btn" onclick="addToCart('Crankbait Lure', 9.99)">Add to Cart</button>
+      </div>
     </div>
 
     <div class="card">
       <img src="https://m.media-amazon.com/images/I/71GlW+qYlML._AC_SL1500_.jpg" alt="Spinnerbait">
-      <h2>Spinnerbait</h2>
-      <p>$7.49</p>
-      <button class="btn" onclick="addToCart('Spinnerbait', 7.49)">Add to Cart</button>
+      <div class="card-content">
+        <h3>Spinnerbait</h3>
+        <p class="price">$7.49</p>
+        <button class="btn" onclick="addToCart('Spinnerbait', 7.49)">Add to Cart</button>
+      </div>
     </div>
 
     <div class="card">
       <img src="https://m.media-amazon.com/images/I/91jysW0-MyL._AC_SL1500_.jpg" alt="Topwater Frog">
-      <h2>Topwater Frog</h2>
-      <p>$12.99</p>
-      <button class="btn" onclick="addToCart('Topwater Frog', 12.99)">Add to Cart</button>
+      <div class="card-content">
+        <h3>Topwater Frog</h3>
+        <p class="price">$12.99</p>
+        <button class="btn" onclick="addToCart('Topwater Frog', 12.99)">Add to Cart</button>
+      </div>
     </div>
 
     <div class="card">
       <img src="https://m.media-amazon.com/images/I/81PvAK-ptzL._AC_SL1500_.jpg" alt="Soft Plastic Worms">
-      <h2>Soft Plastic Worm Pack</h2>
-      <p>$6.99</p>
-      <button class="btn" onclick="addToCart('Soft Plastic Worm Pack', 6.99)">Add to Cart</button>
+      <div class="card-content">
+        <h3>Soft Plastic Worm Pack</h3>
+        <p class="price">$6.99</p>
+        <button class="btn" onclick="addToCart('Soft Plastic Worm Pack', 6.99)">Add to Cart</button>
+      </div>
     </div>
   </section>
 
