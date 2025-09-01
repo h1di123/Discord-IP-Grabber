@@ -20,12 +20,12 @@
     }
 
     header {
-      background: var(--main-color);
+      background: white;
+      border-bottom: 1px solid #eee;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -33,34 +33,23 @@
 
     header h1 {
       margin: 0;
-      font-size: 1.5rem;
+      color: var(--main-color);
     }
 
     nav a {
-      color: white;
+      color: var(--text-color);
       text-decoration: none;
       margin-left: 1.5rem;
       font-weight: 500;
     }
 
     nav a:hover {
-      text-decoration: underline;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 3rem 1rem;
-      background: #fff7ed;
-    }
-
-    .hero h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      color: var(--main-color);
     }
 
     .shop {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.5rem;
       padding: 2rem;
       max-width: 1200px;
@@ -72,6 +61,7 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
       transition: transform 0.2s;
     }
 
@@ -81,24 +71,59 @@
 
     .card img {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
     }
 
     .card-content {
-      padding: 1rem;
+      padding: 0.8rem;
       text-align: center;
     }
 
     .card-content h3 {
       margin: 0.5rem 0;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .price {
       font-weight: bold;
       color: var(--main-color);
-      margin: 0.5rem 0;
+    }
+
+    /* Modal (product details) */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 700px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
     .btn {
@@ -117,33 +142,11 @@
     .btn:hover {
       background: var(--hover-color);
     }
-
-    #cart {
-      background: #fff7ed;
-      padding: 2rem;
-      border-top: 2px solid var(--main-color);
-      max-width: 800px;
-      margin: auto;
-    }
-
-    #cart h2 {
-      margin-top: 0;
-    }
-
-    #cart-items {
-      list-style: none;
-      padding: 0;
-    }
-
-    #cart-items li {
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #eee;
-    }
   </style>
 </head>
 <body>
   <header>
-    <h1>🎣 Fisherman’s Lure Shop</h1>
+    <h1>🎣 Fisherman’s Shop</h1>
     <nav>
       <a href="#">Home</a>
       <a href="#">Shop</a>
@@ -152,72 +155,62 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <h2>Premium Fishing Lures</h2>
-    <p>Catch more with our high-quality lures – trusted by anglers worldwide.</p>
-  </section>
-
   <section class="shop">
-    <div class="card">
+    <div class="card" onclick="openModal('Crankbait Lure','https://m.media-amazon.com/images/I/81Y-s9qCOaL._AC_SL1500_.jpg','Durable crankbait lure, perfect for bass fishing.',9.99)">
       <img src="https://m.media-amazon.com/images/I/81Y-s9qCOaL._AC_SL1500_.jpg" alt="Crankbait">
       <div class="card-content">
         <h3>Crankbait Lure</h3>
-        <p class="price">$9.99</p>
-        <button class="btn" onclick="addToCart('Crankbait Lure', 9.99)">Add to Cart</button>
+        <p class="price">€9.99</p>
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="openModal('Spinnerbait','https://m.media-amazon.com/images/I/71GlW+qYlML._AC_SL1500_.jpg','Spinnerbait with reflective blades for maximum attraction.',7.49)">
       <img src="https://m.media-amazon.com/images/I/71GlW+qYlML._AC_SL1500_.jpg" alt="Spinnerbait">
       <div class="card-content">
         <h3>Spinnerbait</h3>
-        <p class="price">$7.49</p>
-        <button class="btn" onclick="addToCart('Spinnerbait', 7.49)">Add to Cart</button>
+        <p class="price">€7.49</p>
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="openModal('Topwater Frog','https://m.media-amazon.com/images/I/91jysW0-MyL._AC_SL1500_.jpg','Realistic frog lure for topwater strikes.',12.99)">
       <img src="https://m.media-amazon.com/images/I/91jysW0-MyL._AC_SL1500_.jpg" alt="Topwater Frog">
       <div class="card-content">
         <h3>Topwater Frog</h3>
-        <p class="price">$12.99</p>
-        <button class="btn" onclick="addToCart('Topwater Frog', 12.99)">Add to Cart</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/81PvAK-ptzL._AC_SL1500_.jpg" alt="Soft Plastic Worms">
-      <div class="card-content">
-        <h3>Soft Plastic Worm Pack</h3>
-        <p class="price">$6.99</p>
-        <button class="btn" onclick="addToCart('Soft Plastic Worm Pack', 6.99)">Add to Cart</button>
+        <p class="price">€12.99</p>
       </div>
     </div>
   </section>
 
-  <section id="cart">
-    <h2>🛒 Shopping Cart</h2>
-    <ul id="cart-items"></ul>
-    <p><strong>Total: $<span id="cart-total">0.00</span></strong></p>
-  </section>
+  <!-- Modal -->
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modal-img" src="" alt="">
+      <h2 id="modal-title"></h2>
+      <p id="modal-desc"></p>
+      <p><strong>Price: €<span id="modal-price"></span></strong></p>
+      <button class="btn">Add to Cart</button>
+    </div>
+  </div>
 
   <script>
-    let cart = [];
-    function addToCart(item, price) {
-      cart.push({ item, price });
-      renderCart();
+    function openModal(title, img, desc, price) {
+      document.getElementById("modal-title").innerText = title;
+      document.getElementById("modal-img").src = img;
+      document.getElementById("modal-desc").innerText = desc;
+      document.getElementById("modal-price").innerText = price.toFixed(2);
+      document.getElementById("productModal").style.display = "flex";
     }
-    function renderCart() {
-      let list = document.getElementById('cart-items');
-      list.innerHTML = '';
-      let total = 0;
-      cart.forEach(c => {
-        let li = document.createElement('li');
-        li.textContent = `${c.item} - $${c.price.toFixed(2)}`;
-        list.appendChild(li);
-        total += c.price;
-      });
-      document.getElementById('cart-total').textContent = total.toFixed(2);
+
+    function closeModal() {
+      document.getElementById("productModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      let modal = document.getElementById("productModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     }
   </script>
 </body>
